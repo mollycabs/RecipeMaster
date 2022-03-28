@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class CSVReader{
 
     public RecipeCollection readFile(RecipeCollection recipeDatabase){
-        String path = "Recipes.csv";
+        //String path = "src\\Recipes.csv";
+        String path = "src/Recipes.csv";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path)); //create a buffered reader object 
             String line = null; //initialize line variable
