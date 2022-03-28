@@ -31,7 +31,6 @@ public class RecipeCollectionDriver {
                 System.out.println("HELLOOOOOO");
         }
 
-        
         while (true) {
             try {
                 TimeUnit.SECONDS.sleep(1); //delayed print statements
@@ -65,11 +64,9 @@ public class RecipeCollectionDriver {
                 myCookbook.addRecipe(recipeDatabase.listOfRecipes.get(recipeIndex)); //adds recipe to user's cookbook
                 break;
             case 4:
-                
                 break;
 
-            
-        }
-        
+            } 
+        }    
     }
 }
