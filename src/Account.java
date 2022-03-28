@@ -32,10 +32,10 @@ public class Account
 
         String password = userInput.nextLine();
         
-
+        
         //System.out.println(account);
 
-        String loc = "accounts.csv"; // location of file we will be writing into
+        String loc = "src/accounts.csv"; // location of file we will be writing into
 
         try {
             FileWriter fw = new FileWriter(loc, true); // FileWriter function parameters: location of file, true if writing into end of file instead of biginning
@@ -51,9 +51,8 @@ public class Account
         } catch (IOException e) { // exception type IOException
             e.printStackTrace();
         }
-
-        userInput.close();
-        passInput.close();
+        
+        
        
     }
 }

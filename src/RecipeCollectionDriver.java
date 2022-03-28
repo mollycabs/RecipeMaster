@@ -1,22 +1,12 @@
 package src;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
 public class RecipeCollectionDriver {
-    public static void main(String[] args) {
-        RecipeCollection myCookbook = new RecipeCollection(); //instantiate a personal cookbook
-        RecipeCollection recipeDatabase = new RecipeCollection(); //read in the recipe database from the recipes.csv file
-        CSVReader reader = new CSVReader(); //create a CSV reader object
-        recipeDatabase = reader.readFile(recipeDatabase); //read in file, sending in the empty collection to be filled and returning the collection with recipes added
 
-        Scanner scan = new Scanner(System.in);
-        Scanner optionsScan = new Scanner(System.in);
-        Scanner scan3 = new Scanner(System.in);
+    public static void creatingAccount(Scanner optionsScan){
+        // Login or Create Account
 
-
-        System.out.println("Welcome to the Cookbook Creator!");
-        //while loop for menu selection
-
-        // CREATE ACCOUNT OR LOGIN
         System.out.println("1: Create Account\n2: Login\n");
         System.out.println("Make Selection: ");
         Account a = new Account(); // new account
@@ -30,8 +20,25 @@ public class RecipeCollectionDriver {
                 // login validation goes here
                 System.out.println("HELLOOOOOO");
         }
+        
+    }
 
-        while (true) {
+    public static void main(String[] args) {
+        RecipeCollection myCookbook = new RecipeCollection(); //instantiate a personal cookbook
+        RecipeCollection recipeDatabase = new RecipeCollection(); //read in the recipe database from the recipes.csv file
+        CSVReader reader = new CSVReader(); //create a CSV reader object
+        recipeDatabase = reader.readFile(recipeDatabase); //read in file, sending in the empty collection to be filled and returning the collection with recipes added
+
+        Scanner menuItemScan = new Scanner(System.in);
+        Scanner selectRecipeScan = new Scanner(System.in);
+        
+
+        System.out.println("Welcome to the Cookbook Creator!");
+        creatingAccount(menuItemScan);
+
+        Boolean cont = true;
+        //while loop for menu selection
+        while (cont) {
             try {
                 TimeUnit.SECONDS.sleep(1); //delayed print statements
             } catch (InterruptedException e) {
@@ -39,7 +46,10 @@ public class RecipeCollectionDriver {
             } 
             System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add a recipe to your cookbook\n4: Exit\n");
             System.out.println("Make your selection: ");
-            int menuItem = scan.nextInt(); // number of function to run
+
+        
+            int menuItem = menuItemScan.nextInt(); // number of function to run​
+
 
             //switch statement for function selection
             switch (menuItem){
@@ -59,14 +69,20 @@ public class RecipeCollectionDriver {
                     recipe.printIngredients(recipe);
                 }
                 System.out.println("Make your selection: ");
-                int selectedRecipe = scan3.nextInt(); //number of recipe corresponds to its index in the listOfRecipes
+                int selectedRecipe = selectRecipeScan.nextInt(); //number of recipe corresponds to its index in the listOfRecipes
                 int recipeIndex = selectedRecipe - 1; //return recipe number to actual index
                 myCookbook.addRecipe(recipeDatabase.listOfRecipes.get(recipeIndex)); //adds recipe to user's cookbook
                 break;
             case 4:
-                break;
+                cont = false;
+                break;   
+            }
+          
+        } 
 
-            } 
-        }    
+        menuItemScan.close();
+        selectRecipeScan.close();
+    
     }
 }
+
