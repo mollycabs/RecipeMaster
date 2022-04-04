@@ -20,12 +20,14 @@ public class Account{
     public String username;
     public String password;
     public String CSVFilename;
+    public Boolean loginCorrect = false;
     
 
     public Account(String u, String p, String cfn){
         this.username = u;
         this.password = p; 
         this.CSVFilename = cfn;
+        this.loginCorrect = false;
     }
 
     //getters and setters
@@ -53,6 +55,14 @@ public class Account{
         return CSVFilename;
     }
 
+    public void setUsername(Boolean loginCorrect){
+        this.loginCorrect = loginCorrect;
+    }
+
+    public Boolean getLoginCorrect(){
+        return loginCorrect;
+    }
+
 // validate Login
     public void creatingAccount(Scanner optionsScan){
         // Login or Create Account
@@ -66,6 +76,7 @@ public class Account{
                 this.accountMethod();
                 break;
             case 2:
+            while(this.loginCorrect==false){
             Scanner userInput = new Scanner(System.in);
             System.out.println("Enter Username");
             String username = userInput.nextLine();
@@ -94,15 +105,17 @@ public class Account{
                 if(accountUser.equals(username)){
                     if(accountPass.equals(password)){
                         System.out.println("User + Password Match");
-                        
+                        this.loginCorrect = true;
                     }
                     else{
-                        System.out.println("User + Password Does Not Match");
+                        System.out.println("User + Password Does Not Match. Try Again");
+                        this.loginCorrect = false;
                     }
                 }
             }
         }
     }
+}
     
             
 
