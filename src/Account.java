@@ -1,38 +1,70 @@
 package src;
 import java.io.FileWriter;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
 
-public class Account
-{ 
-    /*
-    private String username;
-    private String password;
-    private String[] accounts = {};
+public class Account{ 
 
-    public Account(String u, String p){
+    public String username;
+    public String password;
+    public String CSVFilename;
+    
+
+    public Account(String u, String p, String cfn){
         this.username = u;
         this.password = p; 
-    }*/
+        this.CSVFilename = cfn;
+    }
+
+    //getters and setters
+    public void setUsername(String user){
+        this.username = user;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public void setPassword(String pass){
+        this.password = pass;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setCSVFile(String filename){
+        this.CSVFilename = filename;
+    }
+
+    public String getCSVFileName(){
+        return CSVFilename;
+    }
+
     //public static void main(String[] args){
     public void accountMethod(){
         Scanner userInput = new Scanner(System.in);
         System.out.println("Create Username");
 
         String username = userInput.nextLine();
-        
+        setUsername(username);
+        createCSVFile(username); //creates a CSV file for the user
 
         Scanner passInput = new Scanner(System.in);
         System.out.println("Create Password");
 
         String password = userInput.nextLine();
-        
-        
+        setPassword(password);
+
         //System.out.println(account);
 
         String loc = "src/accounts.csv"; // location of file we will be writing into
@@ -51,8 +83,72 @@ public class Account
         } catch (IOException e) { // exception type IOException
             e.printStackTrace();
         }
-        
-        
        
+    }
+
+    public void createCSVFile(String username){
+        StringBuilder accFile = new StringBuilder(); 
+        accFile.append("src/UserCookBooks/");
+        accFile.append(username);
+        accFile.append(".csv");
+        String accountFileName = accFile.toString();
+        setCSVFile(accountFileName);
+    }
+
+    public RecipeCollection readUserCookbook(myCookbook){
+        String f = CSVFilename;
+        BufferedReader br = new BufferedReader(new FileReader(f)); //create a buffered reader object 
+        String line = null; //initialize line variable
+
+        br.readLine(); //reading the first line and ignoring it (headers)
+
+        while((line = br.readLine()) != null){ //reads each line and records those that are not empty
+            String[] attributes = line.split("\",\""); //splits the line by non-embedded commas (to get each attribute of the recipe object) and stores them in an ArrayList
+            String recipeName = attributes[0]; //recipe name is the first attribute in each line
+            //strips leading double quotes from recipe names
+            if (recipeName.startsWith("\"")) {
+                recipeName = recipeName.substring(1, recipeName.length());
+             }
+            String recipeIngredients = attributes[1]; //recipe ingredients are second in each line
+            String[] parsedIngredients = recipeIngredients.split(","); //separate ingredients 
+            ArrayList<Ingredient> listOfIngredients = new ArrayList<Ingredient>(); //new array list
+            for (String i : parsedIngredients){
+                String[] ingredientAttributes = i.split(":"); //separate ingredient names from amounts
+                String ingredientName = ingredientAttributes[0];
+                String ingredientMeasurement = ingredientAttributes[1]; 
+                Ingredient ingredient = new Ingredient (ingredientName, ingredientMeasurement); //create new ingredient object using attributes
+                listOfIngredients.add(ingredient); //add new ingredient to the array list
+            }
+            String recipeInstructions = attributes[2]; //recipe instructions are third in each line
+            Recipe recipe = new Recipe (recipeName, listOfIngredients, recipeInstructions); //creates a new recipe using the attributes
+            myCookbook.addRecipe(recipe); // adds the recipe to the recipe collection
+        }
+        br.close();
+        return(myCookbook);
+    }
+
+    public void saveToAccount(RecipeCollection collection){
+        try {
+            PrintWriter writer = new PrintWriter(new File (CSVFilename));
+            writer.println("Recipe Name,Ingredients,Instructions"); // writes header to file
+            for (Recipe r : collection.listOfRecipes){
+                StringBuilder ingredientsList = new StringBuilder(); //new string containing the list of ingredients
+                ingredientsList.append('"'); //starts with quote in csv file
+                for (Ingredient i : r.ingredients){
+                    StringBuilder ingredient = new StringBuilder(); 
+                    ingredient.append(i.name);
+                    ingredient.append(":");
+                    ingredient.append(i.measurement);
+                    ingredient.append(","); //need to change this: will add a comma after the last ingredient which won't work
+                    ingredientsList.append(ingredient);
+                }
+                ingredientsList.append('"');
+                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + r.instructions + '"');
+            }
+            writer.flush(); //flush stream
+            writer.close(); //close stream
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
     }
 }

@@ -5,11 +5,13 @@ import java.util.concurrent.TimeUnit;
 public class RecipeCollectionDriver {
 
     public static void creatingAccount(Scanner optionsScan){
+    public static Account creatingAccount(Scanner optionsScan){
         // Login or Create Account
 
         System.out.println("1: Create Account\n2: Login\n");
         System.out.println("Make Selection: ");
         Account a = new Account(); // new account
+        Account a = new Account(null, null, null); // new account
         
         int option = optionsScan.nextInt();
         switch(option){
@@ -21,6 +23,7 @@ public class RecipeCollectionDriver {
                 System.out.println("HELLOOOOOO");
         }
         
+        return (a);
     }
 
     public static void main(String[] args) {
@@ -29,12 +32,15 @@ public class RecipeCollectionDriver {
         CSVReader reader = new CSVReader(); //create a CSV reader object
         recipeDatabase = reader.readFile(recipeDatabase); //read in file, sending in the empty collection to be filled and returning the collection with recipes added
 
+
         Scanner menuItemScan = new Scanner(System.in);
         Scanner selectRecipeScan = new Scanner(System.in);
         
 
         System.out.println("Welcome to the Cookbook Creator!");
         creatingAccount(menuItemScan);
+        Account acc = creatingAccount(menuItemScan);
+        myCookbook = acc.readUserCookbook(myCookbook);
 
         Boolean cont = true;
         //while loop for menu selection
@@ -74,6 +80,7 @@ public class RecipeCollectionDriver {
                 myCookbook.addRecipe(recipeDatabase.listOfRecipes.get(recipeIndex)); //adds recipe to user's cookbook
                 break;
             case 4:
+                acc.saveToAccount(myCookbook);
                 cont = false;
                 break;   
             }
