@@ -104,18 +104,20 @@ public class Account{
                 String accountPass = (accounts.get(count).get(1)); 
                 if(accountUser.equals(username)){
                     if(accountPass.equals(password)){
-                        System.out.println("User + Password Match");
+                        System.out.println(" \n WELCOME BACK \n ");
                         this.loginCorrect = true;
                     }
                     else{
-                        System.out.println("User + Password Does Not Match. Try Again");
+                        System.out.println(" INCORRECT USER OR PASSWORD. Try Again ");
                         this.loginCorrect = false;
                     }
                 }
+                
+            }
             }
         }
     }
-}
+
     
             
 
