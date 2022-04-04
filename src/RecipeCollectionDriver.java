@@ -4,27 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 public class RecipeCollectionDriver {
 
-    public static void creatingAccount(Scanner optionsScan){
-    public static Account creatingAccount(Scanner optionsScan){
-        // Login or Create Account
-
-        System.out.println("1: Create Account\n2: Login\n");
-        System.out.println("Make Selection: ");
-        Account a = new Account(); // new account
-        Account a = new Account(null, null, null); // new account
-        
-        int option = optionsScan.nextInt();
-        switch(option){
-            case 1: // creating an account
-                a.accountMethod();
-                break;
-            case 2:
-                // login validation goes here
-                System.out.println("HELLOOOOOO");
-        }
-        
-        return (a);
-    }
 
     public static void main(String[] args) {
         RecipeCollection myCookbook = new RecipeCollection(); //instantiate a personal cookbook
@@ -38,9 +17,11 @@ public class RecipeCollectionDriver {
         
 
         System.out.println("Welcome to the Cookbook Creator!");
-        creatingAccount(menuItemScan);
-        Account acc = creatingAccount(menuItemScan);
-        myCookbook = acc.readUserCookbook(myCookbook);
+        //creatingAccount(menuItemScan);
+        Account a = new Account(null, null, null);
+        a.creatingAccount(menuItemScan);
+        //Account acc = creatingAccount(menuItemScan);
+        //myCookbook = acc.readUserCookbook(myCookbook);
 
         Boolean cont = true;
         //while loop for menu selection
@@ -80,7 +61,7 @@ public class RecipeCollectionDriver {
                 myCookbook.addRecipe(recipeDatabase.listOfRecipes.get(recipeIndex)); //adds recipe to user's cookbook
                 break;
             case 4:
-                acc.saveToAccount(myCookbook);
+                a.saveToAccount(myCookbook);
                 cont = false;
                 break;   
             }
@@ -92,4 +73,3 @@ public class RecipeCollectionDriver {
     
     }
 }
-

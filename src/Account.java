@@ -6,11 +6,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Arrays;
 
 //import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
+
 
 public class Account{ 
 
@@ -50,41 +53,95 @@ public class Account{
         return CSVFilename;
     }
 
-    //public static void main(String[] args){
-    public void accountMethod(){
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("Create Username");
+// validate Login
+    public void creatingAccount(Scanner optionsScan){
+        // Login or Create Account
 
-        String username = userInput.nextLine();
-        setUsername(username);
-        createCSVFile(username); //creates a CSV file for the user
+        System.out.println("1: Create Account\n2: Login\n");
+        System.out.println("Make Selection: ");
+        
+        int option = optionsScan.nextInt();
+        switch(option){
+            case 1: // creating an account
+                this.accountMethod();
+                break;
+            case 2:
+            Scanner userInput = new Scanner(System.in);
+            System.out.println("Enter Username");
+            String username = userInput.nextLine();
+            System.out.println("Enter Password");
+            Scanner passInput = new Scanner(System.in);
+            String password = passInput.nextLine();
 
-        Scanner passInput = new Scanner(System.in);
-        System.out.println("Create Password");
+            //https://www.baeldung.com/java-csv-file-array
+            List<List<String>> accounts = new ArrayList<>();
+            try (BufferedReader br = new BufferedReader(new FileReader("src/accounts.csv"))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(",");
+                    accounts.add(Arrays.asList(values));
+                }
+            } catch (FileNotFoundException e) { // file not found exception
+                System.out.println(e.getMessage());
+            } catch (IOException e) { // exception type IOException
+                e.printStackTrace();
+            }
+            //System.out.println(accounts);
 
-        String password = userInput.nextLine();
-        setPassword(password);
-
-        //System.out.println(account);
-
-        String loc = "src/accounts.csv"; // location of file we will be writing into
-
-        try {
-            FileWriter fw = new FileWriter(loc, true); // FileWriter function parameters: location of file, true if writing into end of file instead of biginning
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-    
-            pw.println(username + "," + password); // uses print writer function to print username, password into CSV file
-            pw.flush(); // flushes stream
-            pw.close(); // closes stream
-    
-        } catch (FileNotFoundException e) { // file not found exception
-            System.out.println(e.getMessage());
-        } catch (IOException e) { // exception type IOException
-            e.printStackTrace();
+            for(int count = 0; count < accounts.size(); count++){
+                String accountUser = (accounts.get(count).get(0)); 
+                String accountPass = (accounts.get(count).get(1)); 
+                if(accountUser.equals(username)){
+                    if(accountPass.equals(password)){
+                        System.out.println("User + Password Match");
+                        
+                    }
+                    else{
+                        System.out.println("User + Password Does Not Match");
+                    }
+                }
+            }
         }
-       
     }
+    
+            
+
+
+//public static void main(String[] args){
+public void accountMethod(){
+    Scanner userInput = new Scanner(System.in);
+    System.out.println("Create Username");
+
+    String username = userInput.nextLine();
+    setUsername(username);
+    createCSVFile(username); //creates a CSV file for the user
+
+    Scanner passInput = new Scanner(System.in);
+    System.out.println("Create Password");
+
+    String password = userInput.nextLine();
+    setPassword(password);
+
+    //System.out.println(account);
+
+    String loc = "src/accounts.csv"; // location of file we will be writing into
+
+    try {
+        FileWriter fw = new FileWriter(loc, true); // FileWriter function parameters: location of file, true if writing into end of file instead of biginning
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+    
+        pw.println(username + "," + password); // uses print writer function to print username, password into CSV file
+        pw.flush(); // flushes stream
+        pw.close(); // closes stream
+    
+    } catch (FileNotFoundException e) { // file not found exception
+        System.out.println(e.getMessage());
+    } catch (IOException e) { // exception type IOException
+        e.printStackTrace();
+    }
+       
+}
 
     public void createCSVFile(String username){
         StringBuilder accFile = new StringBuilder(); 
@@ -94,7 +151,7 @@ public class Account{
         String accountFileName = accFile.toString();
         setCSVFile(accountFileName);
     }
-
+/*
     public RecipeCollection readUserCookbook(myCookbook){
         String f = CSVFilename;
         BufferedReader br = new BufferedReader(new FileReader(f)); //create a buffered reader object 
@@ -126,7 +183,7 @@ public class Account{
         br.close();
         return(myCookbook);
     }
-
+*/
     public void saveToAccount(RecipeCollection collection){
         try {
             PrintWriter writer = new PrintWriter(new File (CSVFilename));
