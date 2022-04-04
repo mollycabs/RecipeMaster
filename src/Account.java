@@ -63,7 +63,7 @@ public class Account{
         return loginCorrect;
     }
 
-// validate Login
+// Validate Login
     public void creatingAccount(Scanner optionsScan){
         // Login or Create Account
 
@@ -76,7 +76,8 @@ public class Account{
                 this.accountMethod();
                 break;
             case 2:
-            while(this.loginCorrect==false){
+            while(this.loginCorrect==false){ // while the login input does not match, keep getting inputs
+            // get user inputs for unsername and password to login
             Scanner userInput = new Scanner(System.in);
             System.out.println("Enter Username");
             String username = userInput.nextLine();
@@ -84,6 +85,7 @@ public class Account{
             Scanner passInput = new Scanner(System.in);
             String password = passInput.nextLine();
 
+            // Go through accounts in the accounts.csv file and put them in an array list
             //https://www.baeldung.com/java-csv-file-array
             List<List<String>> accounts = new ArrayList<>();
             try (BufferedReader br = new BufferedReader(new FileReader("src/accounts.csv"))) {
@@ -97,66 +99,61 @@ public class Account{
             } catch (IOException e) { // exception type IOException
                 e.printStackTrace();
             }
-            //System.out.println(accounts);
 
+            // Check to see is accountUser and accountPass matches with the user input
             for(int count = 0; count < accounts.size(); count++){
-                String accountUser = (accounts.get(count).get(0)); 
-                String accountPass = (accounts.get(count).get(1)); 
-                if(accountUser.equals(username)){
-                    if(accountPass.equals(password)){
+                String accountUser = (accounts.get(count).get(0)); // 0th index is the accountUser
+                String accountPass = (accounts.get(count).get(1)); // 1st index is the accountPass
+                if(accountUser.equals(username)){ // check to see if account username matches with user input
+                    if(accountPass.equals(password)){ // check to see if account password matches with user input
                         System.out.println(" \n WELCOME BACK \n ");
-                        this.loginCorrect = true;
+                        this.loginCorrect = true; // set loginCorrect to true if match
                     }
                     else{
-                        System.out.println(" INCORRECT USER OR PASSWORD. Try Again ");
-                        this.loginCorrect = false;
+                        System.out.println(" \n INCORRECT USER OR PASSWORD. Try Again \n");
+                        this.loginCorrect = false; // loginCorrect set to false if does not match
                     }
                 }
-                
-            }
             }
         }
     }
-
-    
-            
-
-
-//public static void main(String[] args){
-public void accountMethod(){
-    Scanner userInput = new Scanner(System.in);
-    System.out.println("Create Username");
-
-    String username = userInput.nextLine();
-    setUsername(username);
-    createCSVFile(username); //creates a CSV file for the user
-
-    Scanner passInput = new Scanner(System.in);
-    System.out.println("Create Password");
-
-    String password = userInput.nextLine();
-    setPassword(password);
-
-    //System.out.println(account);
-
-    String loc = "src/accounts.csv"; // location of file we will be writing into
-
-    try {
-        FileWriter fw = new FileWriter(loc, true); // FileWriter function parameters: location of file, true if writing into end of file instead of biginning
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter pw = new PrintWriter(bw);
-    
-        pw.println(username + "," + password); // uses print writer function to print username, password into CSV file
-        pw.flush(); // flushes stream
-        pw.close(); // closes stream
-    
-    } catch (FileNotFoundException e) { // file not found exception
-        System.out.println(e.getMessage());
-    } catch (IOException e) { // exception type IOException
-        e.printStackTrace();
-    }
-       
 }
+
+    // Creating Recipe Book Account 
+    public void accountMethod(){
+        Scanner userInput = new Scanner(System.in);
+        System.out.println("Create Username");
+
+        String username = userInput.nextLine();
+        setUsername(username);
+        createCSVFile(username); //creates a CSV file for the user
+
+        Scanner passInput = new Scanner(System.in);
+        System.out.println("Create Password");
+
+        String password = userInput.nextLine();
+        setPassword(password);
+
+        //System.out.println(account);
+
+        String loc = "src/accounts.csv"; // location of file we will be writing into
+
+        try {
+            FileWriter fw = new FileWriter(loc, true); // FileWriter function parameters: location of file, true if writing into end of file instead of biginning
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+        
+            pw.println(username + "," + password); // uses print writer function to print username, password into CSV file
+            pw.flush(); // flushes stream
+            pw.close(); // closes stream
+        
+        } catch (FileNotFoundException e) { // file not found exception
+            System.out.println(e.getMessage());
+        } catch (IOException e) { // exception type IOException
+            e.printStackTrace();
+        }
+        
+    }
 
     public void createCSVFile(String username){
         StringBuilder accFile = new StringBuilder(); 
