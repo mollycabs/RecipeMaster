@@ -36,7 +36,7 @@ public class RecipeCollectionDriver {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
-            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add a recipe to your cookbook\n4: Exit\n");
+            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Exit\n");
             System.out.println("Make your selection: ");
 
             int menuItem = menuItemScan.nextInt(); // number of function to run​

@@ -115,6 +115,7 @@ public class Account{
                         this.loginCorrect = false; // loginCorrect set to false if does not match
                     }
                 }
+                
             }
         }
     }
