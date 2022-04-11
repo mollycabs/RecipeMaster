@@ -1,5 +1,7 @@
 package src;
 import java.util.ArrayList; 
+import java.util.concurrent.TimeUnit;
+
 class Recipe{
     public String name;
     public ArrayList<Ingredient> ingredients;
@@ -45,9 +47,15 @@ class Recipe{
     }
 
     //prints formatted ingredients 
-    public void printIngredients(Recipe recipe){
-        for (Ingredient ingredient: recipe.ingredients){
+    public void printIngredients(){
+        for (Ingredient ingredient: ingredients){
             ingredient.printIngredient();
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         
     }

@@ -23,7 +23,10 @@ public class RecipeCollection {
     //print all recipes
     public void printRecipes(){
         for (Recipe recipe : listOfRecipes){
-            System.out.println("Recipe Name: " + recipe.getRecipeName() + "\nIngredients:\n" + recipe.getRecipeIngredients() + "\nInstructions:\n" + recipe.getRecipeInstructions()+ "\n");
+            System.out.println("Recipe Name: " + recipe.getRecipeName());
+            System.out.println("\nIngredients:\n");
+            recipe.printIngredients(); 
+            System.out.println("\nInstructions:\n" + recipe.getRecipeInstructions()+ "\n");
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {

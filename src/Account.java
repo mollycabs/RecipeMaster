@@ -81,6 +81,7 @@ public class Account{
             Scanner userInput = new Scanner(System.in);
             System.out.println("Enter Username");
             String username = userInput.nextLine();
+            createCSVFile(username);
             System.out.println("Enter Password");
             Scanner passInput = new Scanner(System.in);
             String password = passInput.nextLine();
@@ -100,7 +101,7 @@ public class Account{
                 e.printStackTrace();
             }
 
-            // Check to see is accountUser and accountPass matches with the user input
+            // Check to see if accountUser and accountPass matches with the user input
             for(int count = 0; count < accounts.size(); count++){
                 String accountUser = (accounts.get(count).get(0)); // 0th index is the accountUser
                 String accountPass = (accounts.get(count).get(1)); // 1st index is the accountPass
@@ -163,8 +164,8 @@ public class Account{
         String accountFileName = accFile.toString();
         setCSVFile(accountFileName);
     }
-/*
-    public RecipeCollection readUserCookbook(myCookbook){
+
+    public RecipeCollection readUserCookbook(RecipeCollection myCookbook) throws IOException{
         String f = CSVFilename;
         BufferedReader br = new BufferedReader(new FileReader(f)); //create a buffered reader object 
         String line = null; //initialize line variable
@@ -195,7 +196,7 @@ public class Account{
         br.close();
         return(myCookbook);
     }
-*/
+
     public void saveToAccount(RecipeCollection collection){
         try {
             PrintWriter writer = new PrintWriter(new File (CSVFilename));
