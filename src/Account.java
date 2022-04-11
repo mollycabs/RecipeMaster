@@ -104,16 +104,18 @@ public class Account{
             for(int count = 0; count < accounts.size(); count++){
                 String accountUser = (accounts.get(count).get(0)); // 0th index is the accountUser
                 String accountPass = (accounts.get(count).get(1)); // 1st index is the accountPass
-                if(accountUser.equals(username)){ // check to see if account username matches with user input
-                    if(accountPass.equals(password)){ // check to see if account password matches with user input
+                if(accountUser.equals(username)&&accountPass.equals(password)){ // check to see if account username matches with user input
+ 
                         System.out.println(" \n WELCOME BACK \n ");
-                        this.loginCorrect = true; // set loginCorrect to true if match
+                        this.loginCorrect = true; // set loginCorrect to true if match 
+                        break;
                     }
-                    else{
+                else{
                         System.out.println(" \n INCORRECT USER OR PASSWORD. Try Again \n");
                         this.loginCorrect = false; // loginCorrect set to false if does not match
+                        break;
                     }
-                }
+                
             }
         }
     }

@@ -1,5 +1,6 @@
 package src;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
 class Recipe{
     public String name;
     public ArrayList<Ingredient> ingredients;
@@ -51,5 +52,8 @@ class Recipe{
         }
         
     }
+
+    
+
 
 }
