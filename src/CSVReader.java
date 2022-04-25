@@ -36,7 +36,7 @@ public class CSVReader{
                     listOfIngredients.add(ingredient); //add new ingredient to the array list
                 }
                 String instructions = attributes[2]; //recipe instructions are third in each line
-                String[] parsedInstructions = instructions.split(";"); //each instruction step is separated by a pipeline (|)2
+                String[] parsedInstructions = instructions.split(";"); //each instruction step is separated by a semicolon
                 ArrayList<Instruction> listOfInstructions = new ArrayList<Instruction>(); //create a new array list to store the separated instructions
                 for (String pi : parsedInstructions){
                     String[] instructionAttributes = pi.split(": ");

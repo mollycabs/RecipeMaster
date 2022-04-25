@@ -15,7 +15,7 @@ public class RecipeCollectionDriver {
         Scanner selectRecipeScan = new Scanner(System.in);
         Scanner addRecipeScan = new Scanner(System.in);
         
-        System.out.println("Welcome to the Cookbook Creator!");
+        System.out.println("Welcome to the Cookbook Creator!\n");
         //creatingAccount(menuItemScan);
         Account a = new Account(null, null, null);
         a.creatingAccount(menuItemScan);
@@ -34,8 +34,8 @@ public class RecipeCollectionDriver {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
-            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Add your own recipe to the database\n5: Save and Exit");
-            System.out.println("Make your selection: ");
+            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Add your own recipe to the database\n5: Save and Exit\n");
+            System.out.println("Make your selection:");
 
             int menuItem = menuItemScan.nextInt(); // number of function to run​
 

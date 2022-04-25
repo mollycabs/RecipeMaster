@@ -130,7 +130,10 @@ public class RecipeCollection {
                     instructionsList.append(s.instructionText);
                     instructionsList.append(";");
                 }
-                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + instructionsList + '"');
+                String il = instructionsList.toString();
+                il = il.replaceAll(";$","");
+                il = il.replaceAll("\"$","");
+                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + il + '"');
             }
             writer.flush(); //flush stream
             writer.close(); //close stream

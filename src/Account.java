@@ -79,10 +79,10 @@ public class Account{
             while(this.loginCorrect==false){ // while the login input does not match, keep getting inputs
             // get user inputs for unsername and password to login
             Scanner userInput = new Scanner(System.in);
-            System.out.println("Enter Username");
+            System.out.println("\nEnter Username");
             String username = userInput.nextLine();
             createCSVFile(username);
-            System.out.println("Enter Password");
+            System.out.println("\nEnter Password");
             Scanner passInput = new Scanner(System.in);
             String password = passInput.nextLine();
 
@@ -230,7 +230,10 @@ public class Account{
                     instructionsList.append(s.instructionText);
                     instructionsList.append(";");
                 }
-                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + instructionsList + '"');
+                String il = instructionsList.toString();
+                il = il.replaceAll(";$","");
+                il = il.replaceAll("\"$","");
+                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + il + '"');
             }
             writer.flush(); //flush stream
             writer.close(); //close stream
