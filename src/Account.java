@@ -191,7 +191,16 @@ public class Account{
                 listOfIngredients.add(ingredient); //add new ingredient to the array list
             }
             String recipeInstructions = attributes[2]; //recipe instructions are third in each line
-            Recipe recipe = new Recipe (recipeName, listOfIngredients, recipeInstructions); //creates a new recipe using the attributes
+            String[] parsedInstructions = recipeInstructions.split(";");
+            ArrayList<Instruction> instructions = new ArrayList<Instruction>();
+            for (String i : parsedInstructions){
+                String[] instructionAttributes = i.split(":");
+                String instructionNum = instructionAttributes[0];
+                String instructionText = instructionAttributes[1];
+                Instruction instruction = new Instruction (instructionNum, instructionText);
+                instructions.add(instruction);
+            }
+            Recipe recipe = new Recipe (recipeName, listOfIngredients, instructions); //creates a new recipe using the attributes
             myCookbook.addRecipe(recipe); // adds the recipe to the recipe collection
         }
         br.close();
@@ -214,7 +223,14 @@ public class Account{
                     ingredientsList.append(ingredient);
                 }
                 ingredientsList.append('"');
-                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + r.instructions + '"');
+                StringBuilder instructionsList = new StringBuilder();
+                for (Instruction s : r.instructions){
+                    instructionsList.append(s.stepNum);
+                    instructionsList.append(": ");
+                    instructionsList.append(s.instructionText);
+                    instructionsList.append(";");
+                }
+                writer.println('"' + r.name + '"' + "," + ingredientsList + "," + '"' + instructionsList + '"');
             }
             writer.flush(); //flush stream
             writer.close(); //close stream

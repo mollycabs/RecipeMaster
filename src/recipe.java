@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit;
 class Recipe{
     public String name;
     public ArrayList<Ingredient> ingredients;
-    public String instructions;
+    public ArrayList<Instruction> instructions;
     
-    public Recipe(String n, ArrayList<Ingredient> ing, String ins){
+    public Recipe(String n, ArrayList<Ingredient> ing, ArrayList<Instruction> ins){
         this.name = n;
         this.ingredients = ing;
         this.instructions = ins;
@@ -29,11 +29,11 @@ class Recipe{
         this.ingredients = ingredients;
     }
 
-    public String getRecipeInstructions(){
+    public ArrayList<Instruction> getRecipeInstructions(){
         return instructions;
     }
 
-    public void setRecipeInstructions(String instructions){
+    public void setRecipeInstructions(ArrayList<Instruction> instructions){
         this.instructions = instructions;
     }
     
@@ -43,7 +43,10 @@ class Recipe{
         for (Ingredient ingredient: ingredients){
             ingredient.printIngredient();
         }
-        System.out.println("\nInstructions: \n" + instructions);
+        System.out.println("\nInstructions: \n");
+        for (Instruction s : instructions){
+            s.printInstruction();
+        }
     }
 
     //prints formatted ingredients 
@@ -57,8 +60,8 @@ class Recipe{
                 e.printStackTrace();
             }
         }
-        
     }
+
 
     
 

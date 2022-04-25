@@ -35,8 +35,18 @@ public class CSVReader{
                     Ingredient ingredient = new Ingredient (ingredientName, ingredientMeasurement); //create new ingredient object using attributes
                     listOfIngredients.add(ingredient); //add new ingredient to the array list
                 }
-                String recipeInstructions = attributes[2]; //recipe instructions are third in each line
-                Recipe recipe = new Recipe (recipeName, listOfIngredients, recipeInstructions); //creates a new recipe using the attributes
+                String instructions = attributes[2]; //recipe instructions are third in each line
+                String[] parsedInstructions = instructions.split(";"); //each instruction step is separated by a pipeline (|)2
+                ArrayList<Instruction> listOfInstructions = new ArrayList<Instruction>(); //create a new array list to store the separated instructions
+                for (String pi : parsedInstructions){
+                    String[] instructionAttributes = pi.split(": ");
+                    String instructionNum = instructionAttributes[0];
+                    String instructionText = instructionAttributes[1];
+                    Instruction in = new Instruction(instructionNum, instructionText);
+                    listOfInstructions.add(in); 
+                }
+    
+                Recipe recipe = new Recipe (recipeName, listOfIngredients, listOfInstructions); //creates a new recipe using the attributes
                 recipeDatabase.addRecipe(recipe); // adds the recipe to the recipe collection
             }
             br.close();

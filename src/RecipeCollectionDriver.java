@@ -1,9 +1,6 @@
 package src; 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
     
@@ -16,6 +13,7 @@ public class RecipeCollectionDriver {
 
         Scanner menuItemScan = new Scanner(System.in);
         Scanner selectRecipeScan = new Scanner(System.in);
+        Scanner addRecipeScan = new Scanner(System.in);
         
         System.out.println("Welcome to the Cookbook Creator!");
         //creatingAccount(menuItemScan);
@@ -26,7 +24,7 @@ public class RecipeCollectionDriver {
         if (f.exists()){
             myCookbook = a.readUserCookbook(myCookbook);
         } else {
-            System.out.println("Account file not found.");
+            System.out.println("Account created!");
         }
         Boolean cont = true;
         //while loop for menu selection
@@ -36,7 +34,7 @@ public class RecipeCollectionDriver {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
-            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Exit\n");
+            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Add your own recipe to the database\n5: Save and Exit");
             System.out.println("Make your selection: ");
 
             int menuItem = menuItemScan.nextInt(); // number of function to run​
@@ -69,14 +67,20 @@ public class RecipeCollectionDriver {
                 myCookbook.addRecipe(recipeDatabase.listOfRecipes.get(recipeIndex)); //adds recipe to user's cookbook
                 break;
             case 4:
+                recipeDatabase.addNewRecipe(recipeDatabase, addRecipeScan);
+                break;
+                   
+            case 5:
                 a.saveToAccount(myCookbook);
+                recipeDatabase.saveCollection(recipeDatabase);
                 cont = false;
-                break;   
-            //let users add their own recipes to recipe database
+                System.out.println("Save successful!");
+                break;
             }
           
         } 
         menuItemScan.close();
         selectRecipeScan.close();
+        addRecipeScan.close();
     }
 }
