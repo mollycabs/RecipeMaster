@@ -5,6 +5,11 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
     
 public class RecipeCollectionDriver {
+
+        public static final String ANSI_RESET = "\u001B[0m";
+        public static final String ANSI_BLUE = "\u001B[34m";
+        public static final String ANSI_RED = "\u001b[30m";
+        public static final String ANSI_GREEN = "\u001b[32m";
     public static void main(String[] args) throws IOException {
         RecipeCollection myCookbook = new RecipeCollection(); //instantiate a personal cookbook
         RecipeCollection recipeDatabase = new RecipeCollection(); //instantiate a recipe collection for the database
@@ -15,7 +20,7 @@ public class RecipeCollectionDriver {
         Scanner selectRecipeScan = new Scanner(System.in);
         Scanner addRecipeScan = new Scanner(System.in);
         
-        System.out.println("Welcome to the Cookbook Creator!\n");
+        System.out.println(ANSI_BLUE + " \n Welcome to the Cookbook Creator! \n " + ANSI_RESET);        
         //creatingAccount(menuItemScan);
         Account a = new Account(null, null, null);
         a.creatingAccount(menuItemScan);
@@ -24,7 +29,7 @@ public class RecipeCollectionDriver {
         if (f.exists()){
             myCookbook = a.readUserCookbook(myCookbook);
         } else {
-            System.out.println("Account created!");
+            System.out.println(ANSI_GREEN + "\nAccount Created\n" + ANSI_RESET);
         }
         Boolean cont = true;
         //while loop for menu selection
