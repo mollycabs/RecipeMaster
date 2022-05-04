@@ -62,6 +62,12 @@ class Recipe{
         }
     }
 
+    public void printInstructions(){
+        for (Instruction instruction : instructions){
+            instruction.printInstruction();
+        }
+    }
+
 
     
 

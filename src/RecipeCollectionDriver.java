@@ -39,8 +39,8 @@ public class RecipeCollectionDriver {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
-            System.out.println("1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Add your own recipe to the database\n5: Save and Exit\n");
-            System.out.println("Make your selection:");
+            System.out.println("\n1: View Existing Recipes\n2: View your cookbook\n3: Add existing recipe to your cookbook\n4: Add your own recipe to the database\n5: Save and Exit\n");
+            System.out.println(ANSI_BLUE + "Make Selection:\n" + ANSI_RESET);
 
             int menuItem = menuItemScan.nextInt(); // number of function to run​
 
@@ -79,7 +79,7 @@ public class RecipeCollectionDriver {
                 a.saveToAccount(myCookbook);
                 recipeDatabase.saveCollection(recipeDatabase);
                 cont = false;
-                System.out.println("Save successful!");
+                System.out.println("\nSave successful!");
                 break;
             }
           

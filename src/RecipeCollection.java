@@ -7,6 +7,10 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class RecipeCollection {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_RED = "\u001b[30m";
+    public static final String ANSI_GREEN = "\u001b[32m";
    
     public ArrayList<Recipe> listOfRecipes = new ArrayList<>(); // Recipe collection class has one attribute; an arrayList called listOfRecipes
 
@@ -27,10 +31,11 @@ public class RecipeCollection {
     //print all recipes
     public void printRecipes(){
         for (Recipe recipe : listOfRecipes){
-            System.out.println("Recipe Name: " + recipe.getRecipeName());
-            System.out.println("\nIngredients:\n");
+            System.out.println(ANSI_BLUE + "\nRecipe Name: " + ANSI_RESET + recipe.getRecipeName());
+            System.out.println(ANSI_GREEN + "\nIngredients:\n" + ANSI_RESET);
             recipe.printIngredients(); 
-            System.out.println("\nInstructions:\n" + recipe.getRecipeInstructions()+ "\n");
+            System.out.println(ANSI_GREEN + "\nInstructions:\n" + ANSI_RESET);
+            recipe.printInstructions();
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
@@ -42,7 +47,7 @@ public class RecipeCollection {
     //prints recipes without instructions to keep things clean (used when user views the recipe database)
     public void printRecipeList(){
         for (Recipe recipe : listOfRecipes){
-            System.out.println("Recipe Name: " + recipe.getRecipeName() + "\n");
+            System.out.println(ANSI_BLUE + "\nRecipe Name: " + ANSI_RESET + recipe.getRecipeName());
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
